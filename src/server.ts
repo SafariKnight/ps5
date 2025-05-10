@@ -1,15 +1,16 @@
-import express from "express";
-import routes from "./routes/index";
-import bodyParser from "body-parser";
+import express, { Request, Response } from 'express';
+import routes from './route';
+export const app = express();
+import cors from 'cors';
+const port = 3001;
 
-const app = express();
-const port = 4000;
+app.use(cors());
+app.get('/', (_req: Request, res: Response) => {
+  res.send('App is working');
+});
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/api', routes);
 
-app.use(routes);
-
-app.listen(port);
-
-export default app;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
